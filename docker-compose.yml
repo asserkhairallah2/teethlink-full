@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: teethlink_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: teethlink
+      POSTGRES_PASSWORD: teethlink_secret
+      POSTGRES_DB: teethlink_db
+      TZ: Africa/Cairo
+      PGTZ: Africa/Cairo
+    ports:
+      - "5432:5432"
+    volumes:
+      - teethlink_pgdata:/var/lib/postgresql/data
+      - ./sql/001_schema.sql:/docker-entrypoint-initdb.d/001_schema.sql:ro
+      - ./sql/002_seed.sql:/docker-entrypoint-initdb.d/002_seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U teethlink -d teethlink_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: teethlink_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - teethlink_redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  teethlink_pgdata:
+  teethlink_redisdata:

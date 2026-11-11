@@ -1,0 +1,7 @@
+node_modules/
+.pgdata/
+.pgdata_backup/
+.env
+uploads/*
+!uploads/.gitkeep
+*.log

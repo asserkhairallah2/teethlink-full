@@ -1,0 +1,263 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" width="100%" height="100%" style="background:#F4F9FE;font-family:Inter,system-ui,-apple-system,sans-serif;">
+  <defs>
+    <filter id="shadow" x="-3%" y="-3%" width="106%" height="106%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#10243A" flood-opacity="0.08" />
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#2570B8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#166534" />
+    </marker>
+    <marker id="arrow-gold" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#8A4B0A" />
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1600" height="90" fill="#FFFFFF" border-bottom="1px solid #D6E8F8" />
+  <line x1="0" y1="90" x2="1600" y2="90" stroke="#C9DDF0" stroke-width="2" />
+  <text x="50" y="45" font-size="26" font-weight="700" fill="#10243A">DENTAL PATIENT–STUDENT MATCHING APP | FULL DATABASE SCHEMA</text>
+  <text x="50" y="72" font-size="14" font-weight="500" fill="#5B6B7C">Comprehensive 24-Entity Relational Model matching Refrences/schema (1).png, Chen ERDs &amp; BACKEND_SYSTEM_PLAN_2.md</text>
+  <text x="1550" y="55" font-size="14" font-weight="600" fill="#2570B8" text-anchor="end">O6U Faculty of Dentistry</text>
+
+  <!-- Connectors (Relational Links) -->
+  <!-- Users to Supervisor, Student, Patient -->
+  <path d="M 190 280 L 190 380" stroke="#2570B8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <path d="M 290 230 L 400 230" stroke="#2570B8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <path d="M 290 260 L 400 480" stroke="#2570B8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+  <!-- Supervisor to Student (1:M) -->
+  <path d="M 300 440 L 400 270" stroke="#8A4B0A" stroke-width="2.5" fill="none" marker-end="url(#arrow-gold)" />
+
+  <!-- Student to Permissions, Cases, Appointments, Posts -->
+  <path d="M 610 230 L 700 230" stroke="#2570B8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <path d="M 610 270 L 700 430" stroke="#2570B8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <path d="M 610 180 L 1050 180" stroke="#2570B8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <path d="M 610 200 L 1050 350" stroke="#2570B8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+  <!-- Patient to Conditions, Medications, Allergies, Cases, Ratings -->
+  <path d="M 610 520 L 700 520" stroke="#166534" stroke-width="2" fill="none" marker-end="url(#arrow-green)" />
+  <path d="M 610 560 L 700 680" stroke="#166534" stroke-width="2" fill="none" marker-end="url(#arrow-green)" />
+  <path d="M 610 600 L 700 830" stroke="#166534" stroke-width="2" fill="none" marker-end="url(#arrow-green)" />
+  <path d="M 500 620 L 700 460" stroke="#166534" stroke-width="2" fill="none" marker-end="url(#arrow-green)" />
+  <path d="M 500 620 L 1050 820" stroke="#166534" stroke-width="2" fill="none" marker-end="url(#arrow-green)" />
+
+  <!-- Cases to RiskFlags, RequestPhotos, CompletionReports, Ratings -->
+  <path d="M 910 430 L 1050 280" stroke="#B42318" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <path d="M 910 460 L 1050 500" stroke="#2570B8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <path d="M 910 490 L 1050 630" stroke="#166534" stroke-width="2" fill="none" marker-end="url(#arrow-green)" />
+  <path d="M 910 520 L 1050 800" stroke="#8A4B0A" stroke-width="2" fill="none" marker-end="url(#arrow-gold)" />
+
+  <!-- CompletionReports to CasePhotos (1:M) -->
+  <path d="M 1260 670 L 1350 670" stroke="#166534" stroke-width="2" fill="none" marker-end="url(#arrow-green)" />
+
+  <!-- ==================== CLUSTER 1: ACCOUNTS & PROFILES ==================== -->
+  <!-- Users -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="150" width="210" height="150" rx="8" fill="#FFFFFF" stroke="#2570B8" stroke-width="1.5" />
+    <path d="M 80 150 L 290 150 L 290 180 L 80 180 Z" fill="#2570B8" />
+    <text x="185" y="171" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Users</text>
+    <text x="95" y="200" font-size="11" font-weight="600" fill="#8A4B0A">PK user_id</text><text x="275" y="200" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="95" y="218" font-size="11" fill="#10243A">email</text><text x="275" y="218" font-size="10" fill="#5B6B7C" text-anchor="end">VARCHAR(UQ)</text>
+    <text x="95" y="236" font-size="11" fill="#10243A">password_hash</text><text x="275" y="236" font-size="10" fill="#5B6B7C" text-anchor="end">VARCHAR</text>
+    <text x="95" y="254" font-size="11" font-weight="600" fill="#2570B8">role</text><text x="275" y="254" font-size="10" fill="#5B6B7C" text-anchor="end">ENUM(4)</text>
+    <text x="95" y="272" font-size="11" font-weight="600" fill="#166534">account_status</text><text x="275" y="272" font-size="10" fill="#5B6B7C" text-anchor="end">ENUM</text>
+    <text x="95" y="290" font-size="11" fill="#10243A">rejection_reason</text><text x="275" y="290" font-size="10" fill="#5B6B7C" text-anchor="end">TEXT</text>
+  </g>
+
+  <!-- SupervisorProfiles -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="380" width="220" height="150" rx="8" fill="#FFFFFF" stroke="#8A4B0A" stroke-width="1.5" />
+    <path d="M 80 380 L 300 380 L 300 410 L 80 410 Z" fill="#8A4B0A" />
+    <text x="190" y="401" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">SupervisorProfiles</text>
+    <text x="95" y="430" font-size="11" font-weight="600" fill="#8A4B0A">PK,FK supervisor_id</text><text x="285" y="430" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="95" y="448" font-size="11" font-weight="700" fill="#B42318">supervisor_code</text><text x="285" y="448" font-size="10" fill="#B42318" text-anchor="end">VARCHAR UQ</text>
+    <text x="95" y="466" font-size="11" fill="#10243A">name</text><text x="285" y="466" font-size="10" fill="#5B6B7C" text-anchor="end">VARCHAR</text>
+    <text x="95" y="484" font-size="11" fill="#10243A">department</text><text x="285" y="484" font-size="10" fill="#5B6B7C" text-anchor="end">VARCHAR</text>
+    <text x="95" y="502" font-size="11" fill="#10243A">specialty</text><text x="285" y="502" font-size="10" fill="#5B6B7C" text-anchor="end">VARCHAR</text>
+    <text x="95" y="520" font-size="11" fill="#10243A">contact_info</text><text x="285" y="520" font-size="10" fill="#5B6B7C" text-anchor="end">TEXT</text>
+  </g>
+
+  <!-- StudentProfiles -->
+  <g filter="url(#shadow)">
+    <rect x="400" y="150" width="210" height="175" rx="8" fill="#FFFFFF" stroke="#2570B8" stroke-width="1.5" />
+    <path d="M 400 150 L 610 150 L 610 180 L 400 180 Z" fill="#2570B8" />
+    <text x="505" y="171" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">StudentProfiles</text>
+    <text x="415" y="200" font-size="11" font-weight="600" fill="#8A4B0A">PK,FK student_id</text><text x="595" y="200" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="415" y="218" font-size="11" font-weight="700" fill="#2570B8">FK supervisor_id</text><text x="595" y="218" font-size="10" fill="#2570B8" text-anchor="end">BIGINT (Req)</text>
+    <text x="415" y="236" font-size="11" fill="#10243A">name / age</text><text x="595" y="236" font-size="10" fill="#5B6B7C" text-anchor="end">VARCHAR, INT</text>
+    <text x="415" y="254" font-size="11" fill="#10243A">university / college</text><text x="595" y="254" font-size="10" fill="#5B6B7C" text-anchor="end">VARCHAR</text>
+    <text x="415" y="272" font-size="11" font-weight="600" fill="#166534">academic_year</text><text x="595" y="272" font-size="10" fill="#166534" text-anchor="end">INT (4 or 5)</text>
+    <text x="415" y="290" font-size="11" fill="#10243A">photo_url / id_card</text><text x="595" y="290" font-size="10" fill="#5B6B7C" text-anchor="end">TEXT</text>
+    <text x="415" y="308" font-size="11" fill="#10243A">max_active_cases</text><text x="595" y="308" font-size="10" fill="#5B6B7C" text-anchor="end">SMALLINT</text>
+  </g>
+
+  <!-- PatientProfiles -->
+  <g filter="url(#shadow)">
+    <rect x="400" y="470" width="210" height="150" rx="8" fill="#FFFFFF" stroke="#166534" stroke-width="1.5" />
+    <path d="M 400 470 L 610 470 L 610 500 L 400 500 Z" fill="#166534" />
+    <text x="505" y="491" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">PatientProfiles</text>
+    <text x="415" y="520" font-size="11" font-weight="600" fill="#8A4B0A">PK,FK patient_id</text><text x="595" y="520" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="415" y="538" font-size="11" fill="#10243A">full_name / age</text><text x="595" y="538" font-size="10" fill="#5B6B7C" text-anchor="end">VARCHAR, INT</text>
+    <text x="415" y="556" font-size="11" fill="#10243A">phone</text><text x="595" y="556" font-size="10" fill="#5B6B7C" text-anchor="end">VARCHAR</text>
+    <text x="415" y="574" font-size="11" font-weight="700" fill="#0D9488">photo_consent</text><text x="595" y="574" font-size="10" fill="#0D9488" text-anchor="end">BOOLEAN</text>
+    <text x="415" y="592" font-size="11" font-weight="600" fill="#B42318">has_critical_cond</text><text x="595" y="592" font-size="10" fill="#B42318" text-anchor="end">BOOLEAN</text>
+    <text x="415" y="610" font-size="11" fill="#10243A">questionnaire_date</text><text x="595" y="610" font-size="10" fill="#5B6B7C" text-anchor="end">TIMESTAMPTZ</text>
+  </g>
+
+  <!-- ==================== CLUSTER 2: SERVICES & CASES ==================== -->
+  <!-- StudentServicePermissions -->
+  <g filter="url(#shadow)">
+    <rect x="700" y="150" width="210" height="110" rx="8" fill="#FFFFFF" stroke="#2570B8" stroke-width="1" />
+    <path d="M 700 150 L 910 150 L 910 175 L 700 175 Z" fill="#2570B8" />
+    <text x="805" y="168" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">StudentServicePermissions</text>
+    <text x="715" y="195" font-size="11" font-weight="600" fill="#8A4B0A">PK permission_id</text><text x="895" y="195" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="715" y="213" font-size="11" fill="#10243A">FK student_id</text><text x="895" y="213" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="715" y="231" font-size="11" fill="#10243A">FK service_id</text><text x="895" y="231" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="715" y="249" font-size="11" fill="#10243A">is_active, approved_by</text><text x="895" y="249" font-size="10" fill="#5B6B7C" text-anchor="end">BOOL, FK</text>
+  </g>
+
+  <!-- Cases (Central Hub) -->
+  <g filter="url(#shadow)">
+    <rect x="700" y="380" width="210" height="200" rx="8" fill="#FFFFFF" stroke="#2570B8" stroke-width="2" />
+    <path d="M 700 380 L 910 380 L 910 410 L 700 410 Z" fill="#2570B8" />
+    <text x="805" y="401" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Cases</text>
+    <text x="715" y="430" font-size="11" font-weight="600" fill="#8A4B0A">PK case_id</text><text x="895" y="430" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="715" y="448" font-size="11" font-weight="700" fill="#2570B8">case_number</text><text x="895" y="448" font-size="10" fill="#2570B8" text-anchor="end">UQ (CASE-1042)</text>
+    <text x="715" y="466" font-size="11" fill="#10243A">FK patient_id</text><text x="895" y="466" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="715" y="484" font-size="11" fill="#10243A">FK service_id</text><text x="895" y="484" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="715" y="502" font-size="11" fill="#10243A">FK student_id</text><text x="895" y="502" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT NULL</text>
+    <text x="715" y="520" font-size="11" font-weight="600" fill="#166534">status</text><text x="895" y="520" font-size="10" fill="#166534" text-anchor="end">case_status</text>
+    <text x="715" y="538" font-size="11" fill="#10243A">supervisor_decision</text><text x="895" y="538" font-size="10" fill="#5B6B7C" text-anchor="end">ENUM</text>
+    <text x="715" y="556" font-size="11" fill="#10243A">description / preferred</text><text x="895" y="556" font-size="10" fill="#5B6B7C" text-anchor="end">TEXT, TIME</text>
+    <text x="715" y="574" font-size="11" fill="#10243A">created_at</text><text x="895" y="574" font-size="10" fill="#5B6B7C" text-anchor="end">TIMESTAMPTZ</text>
+  </g>
+
+  <!-- ==================== CLUSTER 3: MEDICAL QUESTIONNAIRE ==================== -->
+  <!-- PatientConditions -->
+  <g filter="url(#shadow)">
+    <rect x="700" y="610" width="210" height="90" rx="8" fill="#FFFFFF" stroke="#166534" stroke-width="1" />
+    <path d="M 700 610 L 910 610 L 910 635 L 700 635 Z" fill="#166534" />
+    <text x="805" y="628" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">PatientConditions</text>
+    <text x="715" y="655" font-size="11" font-weight="600" fill="#8A4B0A">PK,FK patient_id</text><text x="895" y="655" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="715" y="673" font-size="11" font-weight="600" fill="#8A4B0A">PK,FK condition_id</text><text x="895" y="673" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="715" y="691" font-size="11" fill="#10243A">details (e.g. Type 2)</text><text x="895" y="691" font-size="10" fill="#5B6B7C" text-anchor="end">TEXT</text>
+  </g>
+
+  <!-- PatientMedications -->
+  <g filter="url(#shadow)">
+    <rect x="700" y="730" width="210" height="90" rx="8" fill="#FFFFFF" stroke="#166534" stroke-width="1" />
+    <path d="M 700 730 L 910 730 L 910 755 L 700 755 Z" fill="#166534" />
+    <text x="805" y="748" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">PatientMedications</text>
+    <text x="715" y="775" font-size="11" font-weight="600" fill="#8A4B0A">PK medication_id</text><text x="895" y="775" font-size="10" fill="#5B6B7C" text-anchor="end">BIGSERIAL</text>
+    <text x="715" y="793" font-size="11" fill="#10243A">FK patient_id</text><text x="895" y="793" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="715" y="811" font-size="11" fill="#10243A">medication_name, dosage</text><text x="895" y="811" font-size="10" fill="#5B6B7C" text-anchor="end">VARCHAR</text>
+  </g>
+
+  <!-- PatientAllergies -->
+  <g filter="url(#shadow)">
+    <rect x="700" y="850" width="210" height="90" rx="8" fill="#FFFFFF" stroke="#166534" stroke-width="1" />
+    <path d="M 700 850 L 910 850 L 910 875 L 700 875 Z" fill="#166534" />
+    <text x="805" y="868" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">PatientAllergies</text>
+    <text x="715" y="895" font-size="11" font-weight="600" fill="#8A4B0A">PK,FK patient_id</text><text x="895" y="895" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="715" y="913" font-size="11" font-weight="600" fill="#8A4B0A">PK,FK allergy_id</text><text x="895" y="913" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="715" y="931" font-size="11" fill="#10243A">notes (Penicillin, etc.)</text><text x="895" y="931" font-size="10" fill="#5B6B7C" text-anchor="end">TEXT</text>
+  </g>
+
+  <!-- ==================== CLUSTER 4: APPOINTMENTS & OUTCOMES ==================== -->
+  <!-- Appointments -->
+  <g filter="url(#shadow)">
+    <rect x="1050" y="150" width="210" height="130" rx="8" fill="#FFFFFF" stroke="#166534" stroke-width="1.5" />
+    <path d="M 1050 150 L 1260 150 L 1260 175 L 1050 175 Z" fill="#166534" />
+    <text x="1155" y="168" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Appointments</text>
+    <text x="1065" y="195" font-size="11" font-weight="600" fill="#8A4B0A">PK appointment_id</text><text x="1245" y="195" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1065" y="213" font-size="11" fill="#10243A">FK case_id, student_id</text><text x="1245" y="213" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1065" y="231" font-size="11" fill="#10243A">appointment_date, time</text><text x="1245" y="231" font-size="10" fill="#5B6B7C" text-anchor="end">DATE, TIME</text>
+    <text x="1065" y="249" font-size="11" fill="#10243A">place</text><text x="1245" y="249" font-size="10" fill="#5B6B7C" text-anchor="end">TEXT (Clinic 3)</text>
+    <text x="1065" y="267" font-size="11" font-weight="600" fill="#166534">patient_response</text><text x="1245" y="267" font-size="10" fill="#166534" text-anchor="end">ENUM</text>
+  </g>
+
+  <!-- StudentPosts (Portfolio) -->
+  <g filter="url(#shadow)">
+    <rect x="1050" y="310" width="210" height="110" rx="8" fill="#FFFFFF" stroke="#2570B8" stroke-width="1" />
+    <path d="M 1050 310 L 1260 310 L 1260 335 L 1050 335 Z" fill="#2570B8" />
+    <text x="1155" y="328" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">StudentPosts (Portfolio)</text>
+    <text x="1065" y="355" font-size="11" font-weight="600" fill="#8A4B0A">PK post_id</text><text x="1245" y="355" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1065" y="373" font-size="11" fill="#10243A">FK student_id</text><text x="1245" y="373" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1065" y="391" font-size="11" fill="#10243A">FK case_id (UQ Mention)</text><text x="1245" y="391" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1065" y="409" font-size="11" font-weight="600" fill="#166534">is_published</text><text x="1245" y="409" font-size="10" fill="#166534" text-anchor="end">BOOLEAN</text>
+  </g>
+
+  <!-- CaseRequestPhotos -->
+  <g filter="url(#shadow)">
+    <rect x="1050" y="450" width="210" height="90" rx="8" fill="#FFFFFF" stroke="#2570B8" stroke-width="1" />
+    <path d="M 1050 450 L 1260 450 L 1260 475 L 1050 475 Z" fill="#2570B8" />
+    <text x="1155" y="468" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">CaseRequestPhotos</text>
+    <text x="1065" y="495" font-size="11" font-weight="600" fill="#8A4B0A">PK request_photo_id</text><text x="1245" y="495" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1065" y="513" font-size="11" fill="#10243A">FK case_id</text><text x="1245" y="513" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1065" y="531" font-size="11" fill="#10243A">photo_url, description</text><text x="1245" y="531" font-size="10" fill="#5B6B7C" text-anchor="end">TEXT</text>
+  </g>
+
+  <!-- CompletionReports -->
+  <g filter="url(#shadow)">
+    <rect x="1050" y="570" width="210" height="150" rx="8" fill="#FFFFFF" stroke="#166534" stroke-width="1.5" />
+    <path d="M 1050 570 L 1260 570 L 1260 595 L 1050 595 Z" fill="#166534" />
+    <text x="1155" y="588" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">CompletionReports</text>
+    <text x="1065" y="615" font-size="11" font-weight="600" fill="#8A4B0A">PK report_id</text><text x="1245" y="615" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1065" y="633" font-size="11" font-weight="700" fill="#2570B8">FK case_id</text><text x="1245" y="633" font-size="10" fill="#2570B8" text-anchor="end">BIGINT UQ</text>
+    <text x="1065" y="651" font-size="11" fill="#10243A">visit_date, service</text><text x="1245" y="651" font-size="10" fill="#5B6B7C" text-anchor="end">DATE, TEXT</text>
+    <text x="1065" y="669" font-size="11" fill="#10243A">completion_state</text><text x="1245" y="669" font-size="10" fill="#5B6B7C" text-anchor="end">TEXT</text>
+    <text x="1065" y="687" font-size="11" fill="#10243A">needs_follow_up</text><text x="1245" y="687" font-size="10" fill="#5B6B7C" text-anchor="end">BOOLEAN</text>
+    <text x="1065" y="705" font-size="11" font-weight="600" fill="#166534">supervisor_decision</text><text x="1245" y="705" font-size="10" fill="#166534" text-anchor="end">ENUM</text>
+  </g>
+
+  <!-- CasePhotos (Before / After) -->
+  <g filter="url(#shadow)">
+    <rect x="1350" y="610" width="180" height="95" rx="8" fill="#FFFFFF" stroke="#166534" stroke-width="1" />
+    <path d="M 1350 610 L 1530 610 L 1530 635 L 1350 635 Z" fill="#166534" />
+    <text x="1440" y="628" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">CasePhotos</text>
+    <text x="1365" y="655" font-size="11" font-weight="600" fill="#8A4B0A">PK photo_id</text><text x="1515" y="655" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1365" y="673" font-size="11" fill="#10243A">FK report_id</text><text x="1515" y="673" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1365" y="691" font-size="11" font-weight="700" fill="#0D9488">photo_type</text><text x="1515" y="691" font-size="10" fill="#0D9488" text-anchor="end">Before / After</text>
+  </g>
+
+  <!-- Ratings -->
+  <g filter="url(#shadow)">
+    <rect x="1050" y="750" width="210" height="110" rx="8" fill="#FFFFFF" stroke="#8A4B0A" stroke-width="1.5" />
+    <path d="M 1050 750 L 1260 750 L 1260 775 L 1050 775 Z" fill="#8A4B0A" />
+    <text x="1155" y="768" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Ratings (Reviews)</text>
+    <text x="1065" y="795" font-size="11" font-weight="600" fill="#8A4B0A">PK rating_id</text><text x="1245" y="795" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1065" y="813" font-size="11" font-weight="700" fill="#2570B8">FK case_id</text><text x="1245" y="813" font-size="10" fill="#2570B8" text-anchor="end">BIGINT UQ</text>
+    <text x="1065" y="831" font-size="11" fill="#10243A">FK patient_id</text><text x="1245" y="831" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="1065" y="849" font-size="11" font-weight="700" fill="#8A4B0A">score (1 to 5 Stars)</text><text x="1245" y="849" font-size="10" fill="#8A4B0A" text-anchor="end">INT</text>
+  </g>
+
+  <!-- ==================== FOOTER: AUDIT & NOTIFICATIONS ==================== -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="680" width="220" height="90" rx="8" fill="#FFFFFF" stroke="#475569" stroke-width="1" />
+    <path d="M 80 680 L 300 680 L 300 705 L 80 705 Z" fill="#475569" />
+    <text x="190" y="698" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">Notifications</text>
+    <text x="95" y="725" font-size="11" font-weight="600" fill="#8A4B0A">PK notification_id</text><text x="285" y="725" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="95" y="743" font-size="11" fill="#10243A">FK user_id, FK case_id</text><text x="285" y="743" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="95" y="761" font-size="11" fill="#10243A">message, is_read</text><text x="285" y="761" font-size="10" fill="#5B6B7C" text-anchor="end">TEXT, BOOL</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="80" y="800" width="220" height="90" rx="8" fill="#FFFFFF" stroke="#475569" stroke-width="1" />
+    <path d="M 80 800 L 300 800 L 300 825 L 80 825 Z" fill="#475569" />
+    <text x="190" y="818" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">AuditLogs</text>
+    <text x="95" y="845" font-size="11" font-weight="600" fill="#8A4B0A">PK log_id</text><text x="285" y="845" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="95" y="863" font-size="11" fill="#10243A">FK actor_user_id (Admin)</text><text x="285" y="863" font-size="10" fill="#5B6B7C" text-anchor="end">BIGINT</text>
+    <text x="95" y="881" font-size="11" fill="#10243A">action, entity_type, details</text><text x="285" y="881" font-size="10" fill="#5B6B7C" text-anchor="end">VARCHAR</text>
+  </g>
+
+  <!-- Notes & Legend -->
+  <rect x="80" y="990" width="1450" height="150" rx="10" fill="#FFFFFF" stroke="#C9DDF0" stroke-width="1.5" />
+  <text x="110" y="1025" font-size="15" font-weight="700" fill="#10243A">System Architecture &amp; Workflow Rules Grounded in Relational Schema:</text>
+  <text x="110" y="1055" font-size="13" fill="#5B6B7C">1. <tspan font-weight="600" fill="#2570B8">Role Segregation (4 Roles):</tspan> Patients submit cases with medical history; Students take cases; Supervisors approve their students' cases; Admins approve accounts.</text>
+  <text x="110" y="1080" font-size="13" fill="#5B6B7C">2. <tspan font-weight="600" fill="#8A4B0A">Supervisor ID Matching:</tspan> Upon admin approval, supervisor receives unique permanent code (e.g. 4, 7, SUP-0001); student registration enforces valid supervisor_id link.</text>
+  <text x="110" y="1105" font-size="13" fill="#5B6B7C">3. <tspan font-weight="600" fill="#166534">Medical Safety &amp; Privacy:</tspan> Patient names and contact info remain hidden until patient confirms appointment; fixed medical questionnaire drives automatic risk flags.</text>
+  <text x="110" y="1130" font-size="13" fill="#5B6B7C">4. <tspan font-weight="600" fill="#0D9488">Portfolio &amp; Mentions:</tspan> Before/After treatment photos appear in public portfolio and patient history ONLY with explicit patient consent and supervisor validation.</text>
+
+</svg>
