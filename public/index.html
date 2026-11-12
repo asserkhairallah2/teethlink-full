@@ -148,9 +148,11 @@
       border-width: 6px;
     }
     .ph.wide {
-      width: 1280px;
+      width: 1560px;
       max-width: 98vw;
-      height: 860px;
+      min-height: 880px;
+      height: auto;
+      border-radius: 16px;
     }
 
     .sc {
@@ -430,22 +432,90 @@
       padding-bottom: 14px;
       border-bottom: 1px solid var(--ln);
       margin-bottom: 14px;
+      gap: 12px;
+      flex-wrap: wrap;
     }
     .schema-frame {
-      flex: 1;
-      background: #fff;
+      position: relative;
+      background: #F8FAFC;
       border: 1px solid var(--ln);
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: auto;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 10px;
+      justify-content: flex-start;
+      padding: 16px;
+      min-height: 640px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
     }
-    .schema-frame img, .schema-frame svg {
-      max-width: 100%;
+    .schema-viewport {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: auto;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: top center;
+    }
+    .schema-viewport img {
+      width: 100%;
+      max-width: none;
       height: auto;
+      display: block;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+      background: #FFFFFF;
+    }
+    .schema-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FFFFFF;
+      border: 1px solid var(--ln);
+      border-radius: 10px;
+      padding: 8px 14px;
+      margin-bottom: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .schema-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
       border-radius: 8px;
+      border: 1px solid var(--ln);
+      background: #FFFFFF;
+      color: #1E293B;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .schema-btn:hover {
+      background: #F1F5F9;
+      border-color: #CBD5E1;
+    }
+    .schema-btn.primary {
+      background: #1E40AF;
+      color: #FFFFFF;
+      border-color: #1E40AF;
+    }
+    .schema-btn.primary:hover {
+      background: #1D4ED8;
+    }
+    .schema-zoom-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      background: #EFF6FF;
+      color: #1E40AF;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 6px;
+      border: 1px solid #BFDBFE;
     }
   </style>
 </head>
@@ -467,7 +537,7 @@
     <div style="display:flex;align-items:center;gap:10px">
       <div class="live-badge" id="liveBadge">
         <span class="live-dot"></span>
-        <span id="liveStatus">Connected: localhost:4000</span>
+        <span id="liveStatus">Connected</span>
       </div>
       <button class="chip" id="rtlBtn" style="margin:0">RTL / عربي</button>
     </div>

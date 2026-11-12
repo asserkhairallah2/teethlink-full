@@ -132,6 +132,7 @@ const S = {
 
   // Database Schemas Viewer
   schemaTab: 'AUTH', // 'AUTH' | 'FULL'
+  schemaZoom: 1.0,
 
   // Logged-in session
   user: null,
@@ -764,56 +765,80 @@ const SC = {
   // ==========================================
   // DATABASE SCHEMAS & DIAGRAMS VIEWER
   // ==========================================
-  schemas: () => `
-    <div class="schema-viewer-container">
-      <div class="schema-header">
-        <div>
-          <h2 style="margin:0">Database Schemas &amp; Architecture Diagrams</h2>
-          <p style="margin:2px 0 0">Visual Chen ERDs, Relational Schemas &amp; PostgreSQL DDL for TeethLink.</p>
+  schemas: () => {
+    const isAuth = S.schemaTab === 'AUTH';
+    const svgUrl = isAuth ? '/diagrams/01_auth_medical_schema.svg' : '/diagrams/02_full_system_schema.svg';
+    const sqlUrl = isAuth ? '/sql/auth_schema.sql' : '/sql/full_system_schema.sql';
+    const sqlName = isAuth ? 'auth_schema.sql' : 'full_system_schema.sql';
+    const zoomPct = Math.round((S.schemaZoom || 1.0) * 100);
+
+    return `
+      <div class="schema-viewer-container">
+        <div class="schema-header">
+          <div>
+            <h2 style="margin:0 0 4px">Database Schemas &amp; Architecture Diagrams</h2>
+            <p style="margin:0;color:var(--gr)">Visual Chen ERDs, Relational Schemas &amp; PostgreSQL DDL for TeethLink.</p>
+          </div>
+          <div style="display:flex;gap:8px">
+            <span class="chip ${isAuth ? 'on' : ''}" data-do="switch_schema" data-v="AUTH" style="cursor:pointer">
+              Authentication &amp; Medical Schema
+            </span>
+            <span class="chip ${!isAuth ? 'on' : ''}" data-do="switch_schema" data-v="FULL" style="cursor:pointer">
+              Full System Relational Schema (24 Tables)
+            </span>
+          </div>
         </div>
-        <div style="display:flex;gap:8px">
-          <span class="chip ${S.schemaTab === 'AUTH' ? 'on' : ''}" data-do="switch_schema" data-v="AUTH">
-            Authentication &amp; Medical Schema
-          </span>
-          <span class="chip ${S.schemaTab === 'FULL' ? 'on' : ''}" data-do="switch_schema" data-v="FULL">
-            Full System Relational Schema (24 Tables)
-          </span>
+
+        <div class="c m" style="margin:0 0 12px;padding:12px 16px">
+          <b>${isAuth ? 'Schema Focus: Authentication, Accounts &amp; Medical Questionnaire' : 'Schema Focus: Complete 24-Entity TeethLink Hospital System'}</b>
+          <p style="margin:3px 0 0;font-size:13px;line-height:1.5">
+            ${isAuth
+              ? 'Entities: <code>users</code> (Root), <code>supervisor_profiles</code>, <code>student_doctor_profiles</code>, <code>patient_profiles</code>, <code>medical_conditions</code>, <code>patient_conditions</code>, <code>allergies</code>, <code>patient_allergies</code>, <code>patient_medications</code>, <code>audit_logs</code>, <code>refresh_tokens</code>.'
+              : 'Directly matching <code>Refrences/schema (1).png</code>: Accounts, Medical Safety, Clinical Services, Cases, Appointments, Bed Tickets, Treatment Reports, Before/After Photos, Student Portfolio, Ratings, Real-Time Chat, Notifications, and Audit Trail.'
+            }
+          </p>
+        </div>
+
+        <!-- Interactive Control Toolbar -->
+        <div class="schema-toolbar">
+          <div style="display:flex;align-items:center;gap:8px">
+            <button class="schema-btn" data-do="schema_zoom_out" title="Zoom Out">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Zoom -
+            </button>
+            <span class="schema-zoom-badge">${zoomPct}%</span>
+            <button class="schema-btn" data-do="schema_zoom_in" title="Zoom In">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Zoom +
+            </button>
+            <button class="schema-btn" data-do="schema_zoom_reset" title="Fit to standard view">
+              Fit 100%
+            </button>
+            <button class="schema-btn" data-do="schema_zoom_expand" title="Expand view">
+              Expand 150%
+            </button>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <a class="schema-btn primary" href="${svgUrl}" target="_blank" rel="noopener">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Open SVG Fullscreen
+            </a>
+            <a class="schema-btn" href="${sqlUrl}" download="${sqlName}">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download ${sqlName}
+            </a>
+          </div>
+        </div>
+
+        <!-- High-DPI Diagram Viewport -->
+        <div class="schema-frame">
+          <div class="schema-viewport" style="width:${Math.max(100, zoomPct)}%; min-width: 1050px;">
+            <img src="${svgUrl}" alt="Relational Database Architecture Diagram" loading="eager">
+          </div>
         </div>
       </div>
-
-      ${S.schemaTab === 'AUTH' ? `
-        <div class="c m" style="margin:0 0 12px;padding:12px 16px">
-          <b>Schema Focus: Authentication, Accounts &amp; Medical Questionnaire</b>
-          <p style="margin:2px 0 0">
-            Entities: <code>users</code> (Root), <code>supervisor_profiles</code>, <code>student_doctor_profiles</code>, <code>patient_profiles</code>,
-            <code>medical_conditions</code>, <code>patient_conditions</code>, <code>allergies</code>, <code>patient_allergies</code>, <code>patient_medications</code>, <code>audit_logs</code>.
-          </p>
-        </div>
-        <div class="schema-frame">
-          <img src="/diagrams/01_auth_medical_schema.svg" alt="Authentication &amp; Medical Schema Diagram" style="width:100%;max-height:640px;object-fit:contain">
-        </div>
-        <div style="display:flex;gap:10px;margin-top:12px">
-          <a class="b o" href="/diagrams/01_auth_medical_schema.svg" target="_blank" style="text-decoration:none">Open SVG Diagram in New Tab</a>
-          <a class="b s" href="/sql/auth_schema.sql" download="auth_schema.sql" style="text-decoration:none">Download auth_schema.sql</a>
-        </div>
-      ` : `
-        <div class="c m" style="margin:0 0 12px;padding:12px 16px">
-          <b>Schema Focus: Complete 24-Entity TeethLink Hospital System</b>
-          <p style="margin:2px 0 0">
-            Directly matching <code>Refrences/schema (1).png</code>: Accounts, Medical Safety, Clinical Services, Cases, Appointments,
-            Treatment Reports, Before/After Photos, Student Portfolio, Ratings, Notifications, Audit Logs, and Hospital Beds.
-          </p>
-        </div>
-        <div class="schema-frame">
-          <img src="/diagrams/02_full_system_schema.svg" alt="Full System Relational Database Schema Diagram" style="width:100%;max-height:640px;object-fit:contain">
-        </div>
-        <div style="display:flex;gap:10px;margin-top:12px">
-          <a class="b o" href="/diagrams/02_full_system_schema.svg" target="_blank" style="text-decoration:none">Open SVG Diagram in New Tab</a>
-          <a class="b s" href="/sql/full_system_schema.sql" download="full_system_schema.sql" style="text-decoration:none">Download full_system_schema.sql</a>
-        </div>
-      `}
-    </div>
-  `
+    `;
+  },
 };
 
 // -----------------------------------------------------------------------------
@@ -823,6 +848,12 @@ function render() {
   const sc = document.getElementById('sc');
   const ph = document.getElementById('ph');
   const id = S.id;
+
+  const liveEl = document.getElementById('liveStatus');
+  if (liveEl) {
+    const host = window.location.host || 'localhost';
+    liveEl.innerText = `Connected: ${host}`;
+  }
 
   // Frame width adjustment based on view type
   if (id === 'schemas') {
@@ -1046,6 +1077,22 @@ document.addEventListener('click', async (e) => {
     }
     else if (action === 'switch_schema') {
       S.schemaTab = val;
+      render();
+    }
+    else if (action === 'schema_zoom_in') {
+      S.schemaZoom = Math.min(2.5, Math.round(((S.schemaZoom || 1.0) + 0.2) * 10) / 10);
+      render();
+    }
+    else if (action === 'schema_zoom_out') {
+      S.schemaZoom = Math.max(0.6, Math.round(((S.schemaZoom || 1.0) - 0.2) * 10) / 10);
+      render();
+    }
+    else if (action === 'schema_zoom_reset') {
+      S.schemaZoom = 1.0;
+      render();
+    }
+    else if (action === 'schema_zoom_expand') {
+      S.schemaZoom = 1.5;
       render();
     }
     else if (action === 'copy_sup_id') {
